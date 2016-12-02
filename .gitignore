@@ -1,0 +1,5 @@
+*.pyc
+tickrrData/
+*.dat
+*.txt
+*.ini
