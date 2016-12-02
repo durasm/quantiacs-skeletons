@@ -43,9 +43,16 @@ class TS ():
 
 
         # Trading system parameters
+        
         # This is specific to trading strategy
+        # Comment this after putting in best ones below
         self.settings_ts['periodLong'] = 100
         self.settings_ts['periodShort'] = 20
+
+        # Set optimized strategy parameters - shold be uncommented before uploading to Quantiacs
+        # strategy.settings_ts['periodLong']  = [90, 80, 80, 190, 120, 50, 50, 170, 50, 60, 200, 200]
+        # strategy.settings_ts['periodShort'] = [50, 40, 50, 50, 5, 40, 5, 5, 15, 10, 50, 40]
+
 
         # Apply settings from outside, put with _settings, from DoE/Optimization/ML loop
         for key in _settings.keys():
@@ -102,17 +109,14 @@ class TS ():
 
 
 
-# This is executed when uploaded to Quantiacs
+# For testing this strategy as standalone, and when testing best parameters
+# resulted from optimisation
 if __name__ == '__main__':
 
     import quantiacsToolbox
 
     # Instantiate trading system
     strategy=TS()
-
-    # Set optimized strategy parameters - should be edited after optimization
-    strategy.settings_ts['periodLong']  = [90, 80, 80, 190, 120, 50, 50, 170, 50, 60, 200, 200]
-    strategy.settings_ts['periodShort'] = [50, 40, 50, 50, 5, 40, 5, 5, 15, 10, 50, 40]
 
     # Run backtest
     results=quantiacsToolbox.runts(strategy)

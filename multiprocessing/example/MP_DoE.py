@@ -96,8 +96,8 @@ if __name__ == '__main__':
     print "\nUsed %d parallel processes, execution time: %d s"%(use_num_cores, time.time()-time_elapsed)
 
     # Final result
-    print "Optimized long periods:", best_long
-    print "Optimized short periods:", best_short
+    print "Best long periods:", best_long
+    print "Best short periods:", best_short
 
 
     # Store results to file

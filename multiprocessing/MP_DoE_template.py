@@ -99,8 +99,8 @@ if __name__ == '__main__':
 
 
     # Display final result
-    print "Optimized long periods:", best_long
-    print "Optimized short periods:", best_short
+    print "Best long periods:", best_long
+    print "Best short periods:", best_short
 
 
     # Store results to file !! Important !!

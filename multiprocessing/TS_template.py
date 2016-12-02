@@ -46,12 +46,15 @@ class TS ():
 
 
         # Trading system parameters
+
         # This section is specific to trading strategy
-        # Put default values here
+        # Put default values here for optmiozation
+        # Replace with optmized parameters after DoE, before uploading to Quantiacs
         self.settings_ts['periodLong'] = 100
         self.settings_ts['periodShort'] = 20
 
-        # Apply settings from outside, put with _settings, from DoE/Optimization/ML loop
+
+        # Apply settings from outside, given with _settings, from DoE/Optimization/ML loop
         for key in _settings.keys():
             self.settings_ts[key]=_settings[key]
 
@@ -98,18 +101,14 @@ class TS ():
 
 
 
-# This is executed when uploaded to Quantiacs
+# For testing this strategy as standalone script
+# e.g. testing best parameters resulted from optimisation, before uploading to Quantiacs
 if __name__ == '__main__':
 
     import quantiacsToolbox
 
     # Instantiate trading system
     strategy=TS()
-
-    # Set optimized strategy parameters here - should be edited after optimization
-    # with results stored in file
-    strategy.settings_ts['periodLong'] =[12,23,34,55,66]
-    strategy.settings_ts['periodShort']=[12,23,34,55,66]
 
     # Run backtest
     results=quantiacsToolbox.runts(strategy)
