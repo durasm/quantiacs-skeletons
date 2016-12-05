@@ -33,8 +33,8 @@ def call_backtest (params):
     strategy.settings_ts['markets']  = markets   # Overrides initial in TS - optional
     strategy.settings_ts['lookback']  = lookback # Overrides initial in TS - optional
 
-    strategy.settings_ts['periodLong']  = i  # Apply one parameter of the trading system
-    strategy.settings_ts['periodShort'] = j  # Apply second parameter ....
+    strategy.params_ts['periodLong']  = i  # Apply one parameter of the trading system
+    strategy.params_ts['periodShort'] = j  # Apply second parameter ....
 
     # Display stdout message
     # Messages written out get messed up due to concurrent execution
@@ -92,20 +92,21 @@ if __name__ == '__main__':
 
         # Check results here and do the needed selection, filtering, results checking, etc...
         if best_sharpe < results['stats']['sharpe']:
-            best_long=long_period
-            best_short=short_period
-            best_sharpe=results['stats']['sharpe']
+            best_long = long_period
+            best_short = short_period
+            best_sharpe = results['stats']['sharpe']
             print "Sharpe: ", results['stats']['sharpe'], " for long period: ", long_period, " short period: ", short_period
 
 
+
     # Display final result
-    print "Best long periods:", best_long
-    print "Best short periods:", best_short
+    print "Best long period:", best_long
+    print "Best short period:", best_short
 
 
     # Store results to file !! Important !!
     # If displayed only on screen results usually get lost.
-    out_file=file('TS_results.dat','w')
-    out_file.write("strategy.settings_ts['periodLong']  = %s\n"%repr(best_long))
-    out_file.write("strategy.settings_ts['periodShort'] = %s\n"%repr(best_short))
+    out_file=file('TS_results.dat', 'w')
+    out_file.write("self.params_ts['periodLong']  = %s\n"%repr(best_long))
+    out_file.write("self.params_ts['periodShort'] = %s\n"%repr(best_short))
     out_file.close()

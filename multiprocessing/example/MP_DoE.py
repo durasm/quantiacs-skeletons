@@ -24,15 +24,15 @@ def call_backtest (params):
     strategy = TS() # Instantiate
     strategy.settings_ts['markets']  = markets   # Overrides initial in TS
     strategy.settings_ts['lookback']  = lookback # Overrides initial in TS
-    strategy.settings_ts['periodLong']  = i  # Apply long period from argument to trading system
-    strategy.settings_ts['periodShort'] = j  # Short period
+    strategy.params_ts['periodLong']  = i  # Apply long period from argument to trading system
+    strategy.params_ts['periodShort'] = j  # Short period
 
-    # Display stdout message
+    # Display message
     print "Evaluating for long: %d and short: %d"%(i,j)
 
     # Backtest trading system defined in "strategy" (TS class object)
     # without showing graphics after the run
-    results=quantiacsToolbox.runts(strategy,False)
+    results=quantiacsToolbox.runts(strategy, False)
 
     # Send backtest results back
     return (i, j, results)
@@ -50,7 +50,7 @@ def getMarketStats(returns):
 
 
 # Markets to optimize - global, accessible from all processes
-markets = ['F_KC', 'F_LB','F_OJ', 'F_PA', 'F_PL', 'F_RB', 'F_RU', 'F_S','F_SB', 'F_SF', 'F_SI', 'F_SM']
+markets = ['F_KC', 'F_LB', 'F_OJ', 'F_PA', 'F_PL', 'F_RB', 'F_RU', 'F_S', 'F_SB', 'F_SF', 'F_SI', 'F_SM']
 lookback = 504
 
 # Main
@@ -87,9 +87,9 @@ if __name__ == '__main__':
         # Check each market and pick best strat parameters based on Sharpe ratio
         for k in range (len(stats)):
             if best_sharpe[k] < stats[k]['sharpe']:
-                best_sharpe[k]=stats[k]['sharpe']
-                best_long[k]=long_period
-                best_short[k]=short_period
+                best_sharpe[k] = stats[k]['sharpe']
+                best_long[k] = long_period
+                best_short[k] = short_period
                 print markets[k], " sharpe: ", best_sharpe[k]
 
 
@@ -102,6 +102,6 @@ if __name__ == '__main__':
 
     # Store results to file
     out_file=file('TS_trendfollowing.dat','w')
-    out_file.write("strategy.settings_ts['periodLong']  = %s\n"%repr(best_long))
-    out_file.write("strategy.settings_ts['periodShort'] = %s\n"%repr(best_short))
+    out_file.write("self.params_ts['periodLong']  = %s\n"%repr(best_long))
+    out_file.write("self.params_ts['periodShort'] = %s\n"%repr(best_short))
     out_file.close()
